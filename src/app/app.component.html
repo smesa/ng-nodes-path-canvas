@@ -1,20 +1,18 @@
-<div id="wrap">
+<div id="wrap" class="ui-widget-content">
 
   <svg id="svg" viewBox="0 0 100 100" preserveAspectRatio="none"></svg>
 
-  <div class="box" id="a" style="top: 10%; left: 10%;">
-    <div class="dot" style="top:20px" ></div>
-    <div class="dot" style="top:40px" ></div>
-  </div>
+  X:{{mousePosition.x}} Y: {{mousePosition.y}}
 
-  <div class="box" id="b" style="top: 60%; left: 10%;">
-    <div class="dot" style="top:20px" ></div>
-    <div class="dot" style="top:40px" ></div>
-  </div>
+  <div class="box" [id]="node.id" [style.top]="node.top + 'px'" [style.left]="node.left + 'px'"
+     *ngFor="let node of nodeList" cdkDrag>
 
-  <div class="box"  id="c" style="top: 30%; left: 65%; ">
-    <div class="dot" style="top:20px; left:-10px" ></div>
-    <div class="dot" style="top:40px; left:-10px" ></div>
+    <div class="example-handle" cdkDragHandle style="font-size: 0.5em;" (mousedown)="moveNodeDrag($event)">
+      <i class="fas fa-arrows-alt fa-3x"></i>
+    </div>
+
+    <div id="dot-right-{{node.id}}" class="dot right" style="top:40px" (click)="createPath($event, node, 'init')"></div>
+    <div id="dot-left-{{node.id}}" class="dot left" style="top:20px; left:-10px" (click)="createPath($event, node, 'end')"></div>
   </div>
 
 </div>
