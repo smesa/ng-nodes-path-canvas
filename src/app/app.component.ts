@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import { ElementRef } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { fromEvent } from 'rxjs';
@@ -12,6 +11,7 @@ type pathModel = {
   nodePositionInit?: any,
   nodePositionEnd?: any
 }
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -106,9 +106,7 @@ export class AppComponent  implements OnInit {
     if (existPath) {
       existPath.setAttributeNS(null, "d", lineDraw);
     } else {
-
       const newPath = document.createElementNS(this.SVG_NS, 'path');
-
       newPath.setAttributeNS(null, "d", lineDraw);
       newPath.setAttribute('id', pathId);
       newPath.classList.add('line');
