@@ -118,15 +118,15 @@ export class AppComponent  implements OnInit {
   dragBoxNodeDraw(elementId) {
 
     const pressNodeId = elementId;
-    const pressNode = document.getElementById(pressNodeId);
-    const dataPosNode = pressNode.getBoundingClientRect();
-
-    const x = ((dataPosNode.left - this.mainBox.left) + (dataPosNode.width / 2)) * (100 / this.mainBox.width);
-    const y = ((dataPosNode.top - this.mainBox.top) + (dataPosNode.height / 2)) * (100 / this.mainBox.height);
-
     const pathsInit = this.paths.filter(path => path.nodeInit === pressNodeId);
 
     pathsInit.forEach((path) => {
+
+      const pressNode = document.getElementById(`dot-right-${pressNodeId}`);
+      const dataPosNode = pressNode.getBoundingClientRect();
+
+      const x = ((dataPosNode.left - this.mainBox.left) + (dataPosNode.width / 2)) * (100 / this.mainBox.width);
+      const y = ((dataPosNode.top - this.mainBox.top) + (dataPosNode.height / 2)) * (100 / this.mainBox.height);
 
       const indexOfPaths = this.paths.indexOf(path);
 
@@ -144,6 +144,12 @@ export class AppComponent  implements OnInit {
     const pathsEnds = this.paths.filter(path => path.nodeEnd === pressNodeId);
 
     pathsEnds.forEach((path) => {
+
+      const pressNode = document.getElementById(`dot-left-${pressNodeId}`);
+      const dataPosNode = pressNode.getBoundingClientRect();
+
+      const x = ((dataPosNode.left - this.mainBox.left) + (dataPosNode.width / 2)) * (100 / this.mainBox.width);
+      const y = ((dataPosNode.top - this.mainBox.top) + (dataPosNode.height / 2)) * (100 / this.mainBox.height);
 
       const indexOfPaths = this.paths.indexOf(path);
 
@@ -172,13 +178,15 @@ export class AppComponent  implements OnInit {
 
     mousedown$.subscribe((e) => {
       sub = mousemove$.subscribe((e) => {
-        this.dragBoxNodeDraw(event.srcElement.parentNode.parentNode.id);
+        const nodeId = event.srcElement.parentNode.parentNode.id;
+        this.dragBoxNodeDraw(nodeId);
       })
     });
 
     mouseup$.subscribe((e) => {
       sub.unsubscribe();
     });
+
   }
 
   createPath(event, node, type) {
